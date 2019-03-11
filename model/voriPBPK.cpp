@@ -26,7 +26,7 @@
   Qmu = 0.17*6.5*60
   Qsp = 0.03*6.5*60
   Qha = 0.065*6.5*60  //hepatic artery
-  Qlu = 6.5*60  //same as cardiac output
+  Qlu = 6.5*60        //same as cardiac output
   
   //partition coefficients estimated by Poulin and Theil method https://jpharmsci.org/article/S0022-3549(16)30889-9/fulltext
   Kpad = 9.89  //adipose:plasma
@@ -34,24 +34,24 @@
   Kpbr = 7.35  //brain:plasma
   Kpgu = 5.82  //gut:plasma
   Kphe = 1.95  //heart:plasma
-  Kpki = 2.9  //kidney:plasma
+  Kpki = 2.9   //kidney:plasma
   Kpli = 4.66  //liver:plasma
   Kplu = 0.83  //lungs:plasma
   Kpmu = 2.94  //muscle:plasma; optimized
   Kpsp = 2.96  //spleen:plasma
-  Kpre = 4 //calculated as average of non adipose Kps
-  BP = 1 //blood:plasma ratio
+  Kpre = 4     //calculated as average of non adipose Kps
+  BP = 1       //blood:plasma ratio
   
   //other parameters
   WEIGHT = 73 //(kg)
-  ka = 0.849 //absorption rate constant (/hr) 
-  fup = 0.42 //fraction of unbound drug in plasma
+  ka = 0.849  //absorption rate constant (/hr) 
+  fup = 0.42  //fraction of unbound drug in plasma
   
   //in vitro hepatic clearance parameters http://dmd.aspetjournals.org/content/38/1/25.long
   fumic = 0.711 //fraction of unbound drug in microsomes
-  MPPGL = 30.3 //adult mg microsomal protein per g liver (mg/g)
-  VmaxH = 40 //adult hepatic Vmax (pmol/min/mg)
-  KmH = 9.3 //adult hepatic Km (uM)
+  MPPGL = 30.3  //adult mg microsomal protein per g liver (mg/g)
+  VmaxH = 40    //adult hepatic Vmax (pmol/min/mg)
+  KmH = 9.3     //adult hepatic Km (uM)
 
 
 [CMT] 
@@ -103,7 +103,7 @@
   double Ckidneyfree = Ckidney*fup;
   
   //ODEs
-  dxdt_GUTLUMEN = - ka*GUTLUMEN;
+  dxdt_GUTLUMEN = -ka*GUTLUMEN;
   dxdt_GUT = ka*GUTLUMEN + Qgu*(Carterial - Cgut/(Kpgu/BP)); 
   dxdt_ADIPOSE = Qad*(Carterial - Cadipose/(Kpad/BP)); 
   dxdt_BRAIN = Qbr*(Carterial - Cbrain/(Kpbr/BP));
@@ -122,8 +122,8 @@
   dxdt_ART = Qlu*(Clung/(Kplu/BP) - Carterial);
 
 
-[CAPTURE] 
-  Cvenous
-  
-  
-  
+[TABLE]
+  capture CP = Cvenous/BP;
+
+
+
