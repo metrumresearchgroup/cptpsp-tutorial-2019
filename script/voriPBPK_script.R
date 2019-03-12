@@ -57,16 +57,9 @@ modP <- param(modA, pedPhys)  #generate pediatric model by updating adult model 
 
 ## get partition coefficients using Poulin and Theil method https://jpharmsci.org/article/S0022-3549(16)30889-9/fulltext
 ### voriconazole physicochemical properties
-logP <- 2.56                                          # lipophilicity
-pKa  <- 1.76  
-fup  <- 0.42                                          # unbound fraction in plasma
-type <- 3                                             # monoprotic base
-BP   <- 1                                             # blood:plasma concentration ratio
 tissueComp <- read.csv("../data/tissue_comp_PT.csv")  # tissue composition
-
-#calculate partition coefficients
 source("calcKp_PT.R")
-Kp <- calcKp_PT(logP=logP, pKa=pKa, fup=fup, BP=BP, type=type, dat=tissueComp)
+Kp <- calcKp_PT(logP=2.56, pKa=1.76, fup=0.42, BP=1, type=3, dat=tissueComp)
 
 #update model parameters partition coefficients
 modA <- param(modA, Kp)

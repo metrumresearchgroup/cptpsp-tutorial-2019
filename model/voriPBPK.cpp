@@ -15,7 +15,6 @@
   Vsp = 0.15 //spleen
   Vbl = 5.6  //blood
   
-  
   //Tissue blood flows (L/h); Cardiac output = 6.5 (L/min); source: https://www.ncbi.nlm.nih.gov/pubmed/14506981
   Qad = 0.05*6.5*60
   Qbo = 0.05*6.5*60
@@ -45,13 +44,16 @@
   //other parameters
   WEIGHT = 73 //(kg)
   ka = 0.849  //absorption rate constant (/hr) 
-  fup = 0.42  //fraction of unbound drug in plasma
+  fup = 0.42   //fraction of unbound drug in plasma
   
   //in vitro hepatic clearance parameters http://dmd.aspetjournals.org/content/38/1/25.long
   fumic = 0.711 //fraction of unbound drug in microsomes
   MPPGL = 30.3  //adult mg microsomal protein per g liver (mg/g)
   VmaxH = 40    //adult hepatic Vmax (pmol/min/mg)
   KmH = 9.3     //adult hepatic Km (uM)
+  
+  //renal clearance  https://link.springer.com/article/10.1007%2Fs40262-014-0181-y
+  CL_Ki = 0.096; //(L/hr) renal clearance
 
 
 [CMT] 
@@ -62,23 +64,16 @@
 
 [MAIN]
   //additional volume derivations
-  double Vgu = VguWall + VguLumen;  //total gut volume
   double Vve = 0.705*Vbl; //venous blood
   double Var = 0.295*Vbl; //arterial blood
   double Vre = WEIGHT - (Vli+Vki+Vsp+Vhe+Vlu+Vbo+Vbr+Vmu+Vad+VguWall+Vbl); //volume of rest of the body compartment
   
   //additional blood flow derivation
   double Qli = Qgu + Qsp + Qha;
-  double Qtot = Qli + Qki + Qbo + Qhe + Qmu + Qad + Qbr;
-  double Qre = Qlu - Qtot;
+  double Qre = Qlu - (Qli + Qki + Qbo + Qhe + Qmu + Qad + Qbr);
   
   //intrinsic hepatic clearance calculation
-  double scale_factor_H = MPPGL*Vli*1000; //hepatic scale factor (mg)
-  double CLintHep = (VmaxH/KmH)*scale_factor_H*60*1e-6; //(L/hr)
-  CLintHep = CLintHep/fumic; 
-  
-  //renal clearance https://link.springer.com/article/10.1007%2Fs40262-014-0181-y
-  double CLrenal = 0.096; //(L/hr)
+  double CL_Li = ((VmaxH/KmH)*MPPGL*Vli*1000*60*1e-6) / fumic; //(L/hr) hepatic clearance
 
 
 [ODE]
@@ -98,19 +93,15 @@
   double CgutLumen = GUTLUMEN/VguLumen;
   double Cgut = GUT/VguWall;
   
-  //Free Concentration Calculations
-  double Cliverfree = Cliver*fup; 
-  double Ckidneyfree = Ckidney*fup;
-  
   //ODEs
   dxdt_GUTLUMEN = -ka*GUTLUMEN;
   dxdt_GUT = ka*GUTLUMEN + Qgu*(Carterial - Cgut/(Kpgu/BP)); 
   dxdt_ADIPOSE = Qad*(Carterial - Cadipose/(Kpad/BP)); 
   dxdt_BRAIN = Qbr*(Carterial - Cbrain/(Kpbr/BP));
   dxdt_HEART = Qhe*(Carterial - Cheart/(Kphe/BP));
-  dxdt_KIDNEY = Qki*(Carterial - Ckidney/(Kpki/BP)) - CLrenal*(Ckidneyfree/(Kpki/BP));
+  dxdt_KIDNEY = Qki*(Carterial - Ckidney/(Kpki/BP)) - CL_Ki*(fup*Ckidney/(Kpki/BP));
   dxdt_LIVER = Qgu*(Cgut/(Kpgu/BP)) + Qsp*(Cspleen/(Kpsp/BP)) + Qha*(Carterial) - Qli*(Cliver/(Kpli/BP)) - 
-    CLintHep*(Cliverfree/(Kpli/BP)); 
+    CL_Li*(fup*Cliver/(Kpli/BP)); 
   dxdt_LUNG = Qlu*(Cvenous - Clung/(Kplu/BP));
   dxdt_MUSCLE = Qmu*(Carterial - Cmuscle/(Kpmu/BP));
   dxdt_SPLEEN = Qsp*(Carterial - Cspleen/(Kpsp/BP));
