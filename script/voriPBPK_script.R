@@ -1,4 +1,4 @@
-## This script reproduces the results from manuscript. 
+## This script reproduces the results for voriconazole PBPK section in the manuscript. 
 ## Note: Before proceeding, make "script" your working directory.
 
 # clear workspace
