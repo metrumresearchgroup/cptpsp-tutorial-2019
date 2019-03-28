@@ -1,17 +1,10 @@
 [GLOBAL]
-  
-  //-- #include "global.h"
-  //--  Y = (max(0,x).^k)./(tau^k + max(0,x).^k);
-  
   double HillEQ(double x, double k, double tau) {
     double a = pow(std::max(x,0.0),k);
     return a/(pow(tau,k) + a);
   }
 
-// Created: Wed Jun 28 11:21:18 2017
-
 [PARAM]
-  // Created: Wed Jun 28 11:21:18 2017
   // Parameters (103)
   RASb   = 0    //   param 0
   RASt   = 1    //   param 1
@@ -118,7 +111,6 @@
   Gspry  = 1    //   param 102
 
 [INIT]
-  // Created: Wed Jun 28 11:21:18 2017
   // Initial conditions (17)
   TD1         = 0  //   species 6
   CELLS       = 1  //   species 7
@@ -139,7 +131,6 @@
   RTK1i_gut   = 0  //   species 32
 
 [ODE]
-  // Created: Wed Jun 28 11:21:18 2017
   // RULES (21)
   double RTK1i_C = RTK1i_blood / V1;
   double RAFi_C  = RAFi_blood / V2;
@@ -163,7 +154,6 @@
   double AKT     = (AKTb + (AKTt - AKTb) * HillEQ(PI3K, k8, tau8)) * (1 - HillEQ(AKTi, ki5, taui5));
   double S6      = S6b + (S6t - S6b) * HillEQ(wOR * ERK + (1 - wOR) * AKT, k6, tau6);
 
-  // Created: Wed Jun 28 11:21:18 2017
   // Reactions (22)
   double fb1        = r1 * (ERK - FB1);
   double fb2        = r2 * (ERK - FB2);
@@ -188,8 +178,6 @@
   double PK1b_ERKi  = ka4 * (1 - F4) * ERKi_gut;
   double PK1b_AKTi  = ka5 * (1 - F5) * AKTi_gut;
   
-  
-  // Created: Wed Jun 28 11:21:18 2017
   // ODEs (17)
   dxdt_AKTi_blood  =   PK1a_AKTi - PK2_AKTi;
   dxdt_AKTi_gut    = - PK1a_AKTi - PK1b_AKTi;

@@ -109,7 +109,7 @@ sims <-
 
 
 ### Run the simulation
-sims <- mutate(sims, out = parallel::mclapply(object,sim, Vp = vp, Mod = mod))
+sims <- mutate(sims, out = parallel::mclapply(object, sim, Vp = vp, Mod = mod))
 
 
 ### Summarize and plot
