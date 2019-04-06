@@ -10,8 +10,6 @@ gc()
 library(tidyverse)
 library(mrgsolve)
 library(parallel)
-#source("functions.R")
-# mclapply <- lapply
 
 # useful plotting functions
 noline <- element_blank()
@@ -109,7 +107,7 @@ sims <-
 
 
 ### Run the simulation
-sims <- mutate(sims, out = parallel::mclapply(object, sim, Vp = vp, Mod = mod))
+sims <- mutate(sims, out = parallel::mclapply(object, sim, Vp = vp, Mod = mod))  #this takes a few seconds
 
 
 ### Summarize and plot
