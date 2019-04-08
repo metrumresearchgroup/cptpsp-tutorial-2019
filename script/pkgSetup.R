@@ -1,4 +1,4 @@
-author <- c("kyleb", "ahmede")
+author <- c("--")
 
 pkgs <- c("tidyverse", "qapply", "pmplots", "yspec", "mrggsave", 
           "mrgtable", "tidynm", "metrumrg", "fork", "review",
