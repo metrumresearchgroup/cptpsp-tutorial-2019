@@ -167,7 +167,7 @@ gp3 <-
         legend.position="")
 
 
-### generate manuscript plot ??
+### generate manuscript plot
 legend <- get_legend(gp2)
 
 grid1 <- plot_grid(gp1, gp3,
