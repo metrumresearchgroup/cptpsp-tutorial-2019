@@ -15,7 +15,7 @@ library(mrgsolve)
 ################################################################################################################
 
 # compile pk1 model from model library modlib()
-mod <- mread("pk1", modlib())
+mod <- mread("pk1", "../model")
 
 # show model info
 mod
