@@ -15,6 +15,6 @@
 
 1. Make the folder: `script` your working directory
 2. Run `pkgSetup.R` to install required packages
-3. To reproduce **Figure 1**, run `mrgsolveIntro_script.R`
+3. To reproduce the plot in **Figure 1**, run `mrgsolveIntro_script.R`
 3. To reproduce **Figure 3**, run `voriPBPK_script.R`
 4. To reproduce **Figure 5**, run `mapkQSP_script.R`
