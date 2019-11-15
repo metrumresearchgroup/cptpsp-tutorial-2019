@@ -23,5 +23,5 @@
 
 ### Voriconazole PBPK model extension:
 
-To better capture oral voriconazole oral PK, an extension to the original model was added to include a mechanistic absorption model with an intestinal clearance component. The permeability was optimized and the intestinal clearance was scaled from hepatic clearance guided by relative enzyme expression data https://www.jstage.jst.go.jp/article/yakushi/123/5/123_5_369/_article. The extended model is saved as `voriPBPK_ext.cpp` and the script to run the oral voriconazole simulations is `voriPBPK_ext_script.R`.
+To better capture oral voriconazole PK, an extension to the original model was added to include a mechanistic absorption model with an intestinal clearance component. The permeability was optimized and the intestinal clearance was scaled from hepatic clearance guided by relative enzyme expression data https://www.jstage.jst.go.jp/article/yakushi/123/5/123_5_369/_article. The extended model is saved as `voriPBPK_ext.cpp` and the script to run the oral voriconazole simulations is `voriPBPK_ext_script.R`.
 
